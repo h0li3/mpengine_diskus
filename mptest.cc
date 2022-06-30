@@ -196,12 +196,12 @@ class MpEngine
 {
     static constexpr DWORD MAJOR_VERSION = 0x8E00;
 
-    using rsignal_func_t = unsigned int (*)(int, void*, DWORD);
+    using rsignal_func_t = unsigned int (*)(rsignal_code, void*, DWORD);
 
 public:
     MpEngine()
     {
-        engine_handle_ = LoadLibraryA("MpEngine.dll");
+        engine_handle_ = LoadLibraryA("defender\\MpEngine.dll");
         if (!engine_handle_)
         {
             printf("[-] Failed to load MpEngine.dll: 0x%lx\n", GetLastError());
@@ -226,7 +226,7 @@ public:
         boot_params.EngineConfig = &config;
         boot_params.UnknownData = &unk1;
 
-        auto result = rsignal_(RSIG_BOOTENGINE,
+        auto result = rsignal_(rsignal_code::RSIG_BOOTENGINE,
             reinterpret_cast<void*>(&boot_params), 0xE8);
         if (result)
         {
@@ -240,7 +240,7 @@ public:
     {
         StreamBufferScanData scan_data(filename);
 
-        auto result = rsignal_(RSIG_SCAN_STREAMBUFFER, &scan_data, sizeof(scan_data));
+        auto result = rsignal_(rsignal_code::RSIG_SCAN_STREAMBUFFER, &scan_data, sizeof(scan_data));
         if (result)
         {
             printf("[-] Failed to perform scanning: 0x%lx\n", result);
