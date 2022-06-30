@@ -10,11 +10,10 @@ cl.exe /DEBUG /Zi mptest.cc
 .\mptest.exe sample.exe virus.exe ...
 ```
 
-<img src="assets/image-20220629162128072.png" alt="image-20220629162128072" style="zoom:50%;" />
+<img src="assets/image-20220630172140496.png" alt="image-20220630172140496" style="zoom:50%;" />
 
 #### 问题
 
 1. 运行结束时MpEngine.dll释放资源时，会出现非法内存访问；
-2. CobaltStrike没法检测出来，由于没有运行过原项目，不清楚是不是我代码的问题；
-3. 太简陋。
+2. 简陋。
 
